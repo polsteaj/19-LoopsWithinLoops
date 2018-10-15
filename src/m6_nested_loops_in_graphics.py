@@ -3,8 +3,8 @@ This project demonstrates NESTED LOOPS (i.e., loops within loops)
 in the context of TWO-DIMENSIONAL GRAPHICS.
 
 Authors: David Mutchler, Valerie Galluzzi, Mark Hays, Amanda Stouder,
-         their colleagues and PUT_YOUR_NAME_HERE.
-"""  # TODO: 1. PUT YOUR NAME IN THE ABOVE LINE.
+         their colleagues and Alec Polster.
+"""  # DONE: 1. PUT YOUR NAME IN THE ABOVE LINE.
 
 import rosegraphics as rg
 
@@ -80,10 +80,21 @@ def draw_L(window, circle, r, c):
     and m and n are small, positive integers.
     """
     # ------------------------------------------------------------------
-    # TODO: 2. Implement and test this function.
+    # DONE: 2. Implement and test this function.
     #     The testing code is already written for you (above).
     # ------------------------------------------------------------------
-
+    for k in range(r+3):
+        for j in range(3):
+            bob = rg.Circle(rg.Point(circle.center.x + (j*circle.radius*2), circle.center.y + (k*circle.radius*2)), circle.radius)
+            bob.fill_color = circle.fill_color
+            bob.attach_to(window)
+            down = circle.center.y + k*circle.radius*2
+    for k in range(c):
+        for j in range(3):
+            bob = rg.Circle(rg.Point(circle.center.x + (2*circle.radius*3)+(k*circle.radius*2), down - (j*circle.radius*2)), circle.radius)
+            bob.fill_color = circle.fill_color
+            bob.attach_to(window)
+    window.render()
 
 def run_test_draw_wall_on_right():
     """ Tests the    draw_wall_on_right    function. """
@@ -121,11 +132,22 @@ def draw_wall_on_right(rectangle, n, window):
     and n is a small, positive integer.
     """
     # ------------------------------------------------------------------
-    # TODO: 3. Implement and test this function.
+    # DONE: 3. Implement and test this function.
     #     The testing code is already written for you (above).
     # ------------------------------------------------------------------
-
-
+    corn1 = rectangle.corner_1
+    corn2 = rectangle.corner_2
+    for k in range(n):
+        for _ in range(k+1):
+            bob = rg.Rectangle(corn1, corn2)
+            bob.attach_to(window)
+            corn1.x = corn1.x - rectangle.get_width()
+            corn2.x = corn2.x - rectangle.get_width()
+        corn1.y = corn1.y + rectangle.get_height()
+        corn2.y = corn2.y + rectangle.get_height()
+        corn1.x = rectangle.corner_1.x
+        corn2.x = rectangle.corner_2.x
+    window.render()
 # ----------------------------------------------------------------------
 # Calls  main  to start the ball rolling.
 # ----------------------------------------------------------------------
